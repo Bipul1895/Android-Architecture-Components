@@ -1,0 +1,43 @@
+What are android architecture components ?
+Ans : Android architecture is divided into modular components, each having well defined
+      responsibility. This allows modification and replacement of one component without
+      touching other components. In programming terms, it is called robust and maintainable.
+      They basically make development easier.
+      e.g. DataBinding, LifeCycles, LiveData, Navigation, Paging, Room, ViewModel, WorkManager.
+
+Room : Wrapper around SQLite that handles complicated tasks.
+       Compile time error generates (In pure SQLite, app used to crash due to exception).
+       Turns java objects into entities (rows of table).
+
+ViewModels : Holding and preparing all the data for UI (prevent Activity/Fragment from getting
+             abused). UI connects to ViewModel, gets data from it and it just draws it on the
+             screen and reports user's actions to view model.
+
+             View model is essentially a gateway b/w UI and other components of app, e.g., in
+             this app our activity/fragment won't interact with SQLite.
+
+             Also, during rotation activity gets destroyed and is recreated which means that
+             all member variables are assigned to their default values (activity reaches what
+             is called default state of the activity). View models takes care of this.
+             Our activity just receives a view model instance that contains all the data
+             using which we can restore our app's state.
+
+Repository : Not an architecture component, but a recommended practice which takes care where
+             where the data is coming from (web, db, etc). ViewModel connects to it.
+
+Thus we have what is called "MVVM" - Model, View, ViewModel.
+Activity/Fragment forms View
+Repository with data source (db, web service, etc) forms Model
+And we have ViewModel component.
+
+This achieves modularity : All components are decoupled from one another and all have well
+                           defined responsibility. They only know about the component
+                           immediately below.
+
+There is another component :
+LiveData : Can hold any type of data (including lists)
+           If data changes, observer gets notified (UI gets notified) with the new data and
+           refresh the UI in reaction to it, It is lifecycle aware as well, i.e. , it knows
+           when activity is in background or foreground. It will notify user only when
+           activity is in foreground.
+

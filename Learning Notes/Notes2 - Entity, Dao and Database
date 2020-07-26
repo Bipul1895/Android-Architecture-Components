@@ -1,0 +1,25 @@
+Entity : All relevant details are in the Note.java class.
+
+Dao : Must be either an interface or abstract class because we do not provide the implementation
+      to the methods we write. Room implements our interface to do that.
+      If we want to perform an operation which is not default, mention it explicitly.
+      Note that we are using Query annotation for delete here.
+      Benefit : we get compile-time error if we perform a typo.
+      Other details are in the comment section of NoteDao.java interface.
+
+Database : It is an abstract class that extends from RoomDatabase class.
+           We can specify multiple entities using {} braces.
+           The entity must be provided as java class , eg , Note.class.
+           This class should be a singleton.
+           Do not forget to write the abstract method for "Dao" object.
+
+           Note that getInstance() method expects a context variable.
+           Do not use "new" to create a new instance as our class is abstract.
+           We will use a builder.
+
+           .fallbackToDestructiveMigration() : if version number is changed explicitly,
+           our program will simply destroy the current table and replicate it to create
+           a new one.
+
+           Other details in the comments of abstract class NoteDatabase.class.
+

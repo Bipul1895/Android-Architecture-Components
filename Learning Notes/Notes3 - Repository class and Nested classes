@@ -33,3 +33,8 @@ Back to our class : This class has five public methods. These will be exposed to
                     so that it can use them.
 
 Room callback method is used for pre-population of entities in your db table.
+
+Note that if we want to pre-populate our db with sample values, we have to implement
+onCreate() method of RoomDatabase.callback abstract class in our NoteDatabase.java
+class. Finally add this callback class' object to where we created our NoteDatabase
+object.

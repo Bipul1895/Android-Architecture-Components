@@ -37,6 +37,7 @@ public class NoteRepository {
         new DeleteAllNoteAsyncTask(noteDao).execute();
     }
 
+    //Already running on background thread because of room db implementation
     public List<Note> getAllNotes() {
         return allNotes;
     }

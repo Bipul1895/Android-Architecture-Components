@@ -22,7 +22,7 @@ ViewModels : Holding and preparing all the data for UI (prevent Activity/Fragmen
              Our activity just receives a view model instance that contains all the data
              using which we can restore our app's state.
 
-Repository : Not an architecture component, but a recommended practice which takes care where
+Repository : Not an architecture component, but a recommended practice which takes care
              where the data is coming from (web, db, etc). ViewModel connects to it.
 
 Thus we have what is called "M.V.V.M" - Model, View, ViewModel.

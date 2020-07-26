@@ -1,0 +1,35 @@
+Not an architecture component, but a recommended practice which takes care
+where the data is coming from (web, db, etc). ViewModel connects to it.
+
+This is the class from where database methods (inset, delete, update, etc) will be called.
+So this class has two fields, a Dao object ref. and List<Note>
+
+NoteRepo requires an "application" class for its constructor.
+
+Room requires to perform operations on background thread. So we need to create separate
+async task for insert, delete, update and query. Room does not allow db operations on
+the main thread. App crashes if done so.
+
+We create async task as "static-nested" class of "NoteRepository" class.
+Static nested classes cannot refer directly to instance variables or methods defined
+in the enclosing class, it cna only use them when passed an "object-reference" from
+the NoteRepository.java class.
+
+Note : Static-nested class interacts with its outer class just like any other top-level
+       class. This is its behaviour, a top-level class that has been nested in a class
+       for packaging convenience.
+
+Static nested class prevent the issue of memory leak.
+
+Note that static nested classes are in some way similar and different compared to static methods.
+Similarity : Static nested class cannot access members of its enclosing class without
+             object ref. of the outer class. This is similar to that static methods cannot
+             access non-static fields.
+
+Difference : We can create instance of static-nested classes just like a normal top-level
+             class. We can use "this" keyword, etc.
+
+Back to our class : This class has five public methods. These will be exposed to the View Model
+                    so that it can use them.
+
+Room callback method is used for pre-population of entities in your db table.

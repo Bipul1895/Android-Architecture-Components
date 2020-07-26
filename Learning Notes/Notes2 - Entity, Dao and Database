@@ -23,3 +23,6 @@ Database : It is an abstract class that extends from RoomDatabase class.
 
            Other details in the comments of abstract class NoteDatabase.class.
 
+Once we have implemented this much, in our "MODEL" layer in M.V.V.M, only "Repository" part
+is remaining. Once we are done with this, we will go to "ViewModel" and "View" portions.
+

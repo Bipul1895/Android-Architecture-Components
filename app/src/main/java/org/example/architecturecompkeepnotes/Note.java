@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 /**
- * "Entity" annotation will create all the necessary code required to create a Note entity at
+ * "Entity" annotation will create all the necessary code required to create a Note entity in db at
  * "compile-time"
  * By default name of the table will be Note (same as the class), but we can change it
  * Constructors and Getter methods are essential because this is the way that Room

@@ -19,7 +19,7 @@ Note : Static-nested class interacts with its outer class just like any other to
        class. This is its behaviour, a top-level class that has been nested in a class
        for packaging convenience.
 
-Static nested class prevent the issue of memory leak.
+Static nested class prevents the issue of memory leak.
 
 Note that static nested classes are in some way similar and different compared to static methods.
 Similarity : Static nested class cannot access members of its enclosing class without

@@ -17,13 +17,14 @@ public abstract class NoteDatabase extends RoomDatabase {
 
     public abstract NoteDao noteDao();
 
-    public static NoteDatabase getInstance(Context context) {
+    //Thread safety using synchronized
+    public static synchronized NoteDatabase getInstance(Context context) {
         if(instance != null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     NoteDatabase.class,
                     "note_database")
-                    .fallbackToDestructiveMigration()
-                    .addCallback(roomCallBack)
+                    .fallbackToDestructiveMigration()//change of version => recreate
+                    .addCallback(roomCallBack)//for pre-population of db
                     .build();
         }
 

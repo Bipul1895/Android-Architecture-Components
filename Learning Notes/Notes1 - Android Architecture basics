@@ -6,7 +6,7 @@ Ans : Android architecture is divided into modular components, each having well 
       e.g. DataBinding, LifeCycles, LiveData, Navigation, Paging, Room, ViewModel, WorkManager.
 
 Room : Wrapper around SQLite that handles complicated tasks.
-       Compile time error generates (In pure SQLite, app used to crash due to exception).
+       Compile time error generates if there is typo(In pure SQLite, app used to crash due to exception).
        Turns java objects into entities (rows of table).
 
 ViewModels : Holding and preparing all the data for UI (prevent Activity/Fragment from getting
@@ -14,7 +14,7 @@ ViewModels : Holding and preparing all the data for UI (prevent Activity/Fragmen
              screen and reports user's actions to view model.
 
              View model is essentially a gateway b/w UI and other components of app, e.g., in
-             this app our activity/fragment won't interact with SQLite.
+             this app our activity/fragment won't interact with SQLite directly.
 
              Also, during rotation activity gets destroyed and is recreated which means that
              all member variables are assigned to their default values (activity reaches what

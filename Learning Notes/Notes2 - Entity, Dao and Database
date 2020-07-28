@@ -2,8 +2,8 @@ Entity : All relevant details are in the Note.java class.
 
 Dao : Must be either an interface or abstract class because we do not provide the implementation
       to the methods we write. Room implements our interface to do that.
-      If we want to perform an operation which is not default, mention it explicitly.
-      Note that we are using Query annotation for delete here.
+      If we want to perform an operation which is not default, mention it explicitly (deleteAll()).
+      Note that we are using Query annotation for deleteAll() here.
       Benefit : we get compile-time error if we perform a typo.
       Other details are in the comment section of NoteDao.java interface.
 

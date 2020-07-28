@@ -1,0 +1,47 @@
+What is the role of ViewModel?
+Store and process data from UI and communicate with the Model
+It requests data from the Repository class and sends it
+to the Activity so it can draw it on the screen.
+Also, it forwards user's actions from UI to the repository.
+
+Why is ViewModel so important?
+It is important to put UI related info. in the view model instead of
+UI controller (correct term for Activity/Fragment) itself because it
+can survive configuration changes and we don't have to use bundle
+again and again. The method of using bundle is one of the many "callback"
+techniques and is error-prone and good only if we have less number of
+fields.
+
+Putting data in ViewModel is excellent idea as view model is removed only
+when lifecycle of of the corresponding activity ends (activity is destroyed).
+
+Implementation details in NoteViewModel.java :
+Here we have wrapper methods for insert, update, delete, etc because main
+activity will only have reference to ViewModel object.
+
+ViewModel and Activity relationship :
+Activity has to "retrieve view model object" and "attach observer to the liveData".
+One might be surprised to know that we won't call any database methods directly in
+the MainActivity. These will be automatically called by observer(a member of ViewModel),
+which is linked to the Live Data and it detects if there is a change in the liveData and
+will be called if there is a change. LiveData is a part of ViewModel, just like the
+observer is a part of ViewModel.
+
+Note that each activity will use only one view model.
+We will ask android system which will either create a new ViewModel
+object or return an existing one.
+
+Code : noteVieModel=new ViewModelProvider.(activityName...tells which activity to attach to)
+                        .get(View Model Class Name.class);
+
+Next we have to attach observer to liveData. For this call observe() method on
+liveData object.
+
+Code : noteViewModel.getAllNotes().observe(lifecycle owner...activity,
+                                            observer as anonymous inner class);
+
+Note that liveData takes activity as input this is the reason why liveData
+is lifecycle aware. It will update data only when activity is in the foreground.
+This is how it can avoid memory leaks by deleting reference if activity dies.
+In the 2nd argument, override onChanged() method of the anonymous inner class
+to update recycler view.

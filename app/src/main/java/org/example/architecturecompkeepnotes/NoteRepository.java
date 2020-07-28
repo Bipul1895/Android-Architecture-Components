@@ -3,6 +3,7 @@ package org.example.architecturecompkeepnotes;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Delete;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class NoteRepository {
 
     private NoteDao noteDao;
-    private List<Note> allNotes;
+    private LiveData<List<Note>> allNotes;
 
     public NoteRepository(Application application) {
         NoteDatabase noteDatabase = NoteDatabase.getInstance(application);
@@ -38,7 +39,7 @@ public class NoteRepository {
     }
 
     //Already running on background thread because of room db implementation
-    public List<Note> getAllNotes() {
+    public LiveData<List<Note>> getAllNotes() {
         return allNotes;
     }
 

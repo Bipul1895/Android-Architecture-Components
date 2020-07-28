@@ -19,45 +19,43 @@ public abstract class NoteDatabase extends RoomDatabase {
 
     //Thread safety using synchronized
     public static synchronized NoteDatabase getInstance(Context context) {
-        if(instance != null) {
+        if(instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    NoteDatabase.class,
-                    "note_database")
-                    .fallbackToDestructiveMigration()//change of version => recreate
-                    .addCallback(roomCallBack)//for pre-population of db
+                    NoteDatabase.class, "note_database")
+                    .fallbackToDestructiveMigration()
+                    .addCallback(roomCallback)
                     .build();
         }
-
         return instance;
     }
 
     //For pre-population of db with sample values
-    private static RoomDatabase.Callback roomCallBack = new RoomDatabase.Callback() {
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PrePopulateDbAsyncTask(instance).execute();
+            new PopulateDbAsyncTask(instance).execute();
         }
     };
 
-    private static class PrePopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private NoteDao noteDao;
+    private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         //We do not have object of noteDao as field in the outer class
         // so we will get it from outer class' object
-        private PrePopulateDbAsyncTask(NoteDatabase database) {
-            noteDao = database.noteDao();
+        private NoteDao noteDao;
+
+        private PopulateDbAsyncTask(NoteDatabase db) {
+            noteDao = db.noteDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Note("Title 1" , "Description 1", 1));
-            noteDao.insert(new Note("Title 2" , "Description 2", 2));
-            noteDao.insert(new Note("Title 3" , "Description 3", 3));
-
+            noteDao.insert(new Note("Title 1", "Description 1", 1));
+            noteDao.insert(new Note("Title 2", "Description 2", 2));
+            noteDao.insert(new Note("Title 3", "Description 3", 3));
             return null;
         }
-
     }
 
 }
+

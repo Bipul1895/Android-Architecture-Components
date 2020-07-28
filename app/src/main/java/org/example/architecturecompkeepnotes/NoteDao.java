@@ -1,5 +1,6 @@
 package org.example.architecturecompkeepnotes;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -7,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
+
 
 @Dao
 public interface NoteDao {
@@ -29,6 +31,6 @@ public interface NoteDao {
     //Note that the return type is List<Note>, eliminating the need of explicitly
     //using a Cursor object
     @Query("SELECT * FROM note_table ORDER BY priority DESC")
-    List<Note> getAllNotes();
+    LiveData<List<Note>> getAllNotes();
 
 }

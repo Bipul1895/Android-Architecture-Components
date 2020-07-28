@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class NoteViewModel extends AndroidViewModel {
 
     private NoteRepository repository;
-    private List<Note> allNotes;
+    private LiveData<List<Note>> allNotes;
 
     public NoteViewModel(@NonNull Application application) {
         super(application);
@@ -19,6 +20,7 @@ public class NoteViewModel extends AndroidViewModel {
         allNotes = repository.getAllNotes();
     }
 
+    //wrapper methods
     public void insert(Note note) {
         repository.insert(note);
     }
@@ -35,7 +37,7 @@ public class NoteViewModel extends AndroidViewModel {
         repository.deleteAllNotes();
     }
 
-    public List<Note> getAllNotes() {
+    public LiveData<List<Note>> getAllNotes() {
         return allNotes;
     }
 

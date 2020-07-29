@@ -1,0 +1,5 @@
+Major details are in the comments section of NoteAdapter.java
+
+After writing code in NoteAdapter.java, go to MainActivity.java and in
+onChanged method of Observer, call setNotes() method of NoteAdapter class
+after creating a linking recycler view object with recycler adapter.

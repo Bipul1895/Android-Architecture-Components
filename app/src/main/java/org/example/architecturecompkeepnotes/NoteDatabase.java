@@ -2,6 +2,7 @@ package org.example.architecturecompkeepnotes;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Dao;
@@ -12,6 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {Note.class}, version = 1)
 public abstract class NoteDatabase extends RoomDatabase {
+    private static final String TAG = "NoteDatabase";
 
     private static NoteDatabase instance;
 
@@ -19,6 +21,8 @@ public abstract class NoteDatabase extends RoomDatabase {
 
     //Thread safety using synchronized
     public static synchronized NoteDatabase getInstance(Context context) {
+        Log.d(TAG, "getInstance: starts");
+
         if(instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     NoteDatabase.class, "note_database")
@@ -26,6 +30,8 @@ public abstract class NoteDatabase extends RoomDatabase {
                     .addCallback(roomCallback)
                     .build();
         }
+
+        Log.d(TAG, "getInstance: ends");
         return instance;
     }
 
@@ -34,7 +40,9 @@ public abstract class NoteDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            Log.d(TAG, "onCreate: starts");
             new PopulateDbAsyncTask(instance).execute();
+            Log.d(TAG, "onCreate: ends");
         }
     };
 

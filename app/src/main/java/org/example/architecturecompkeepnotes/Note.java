@@ -1,5 +1,7 @@
 package org.example.architecturecompkeepnotes;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -19,6 +21,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "note_table")
 public class Note {
+    private static final String TAG = "Note";
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
@@ -27,9 +30,11 @@ public class Note {
     //@ColumnInfo(name = "priority_column")
     private int priority;
     public Note(String title, String description, int priority) {
+        Log.d(TAG, "Note: constructor starts");
         this.title = title;
         this.description = description;
         this.priority = priority;
+        Log.d(TAG, "Note: constructor ends");
     }
 
     //Very important

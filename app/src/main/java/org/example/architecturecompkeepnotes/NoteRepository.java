@@ -2,6 +2,7 @@ package org.example.architecturecompkeepnotes;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Delete;
@@ -9,17 +10,22 @@ import androidx.room.Delete;
 import java.util.List;
 
 public class NoteRepository {
+    private static final String TAG = "NoteRepository";
 
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
 
     public NoteRepository(Application application) {
+        Log.d(TAG, "NoteRepository: constructor starts");
+
         NoteDatabase noteDatabase = NoteDatabase.getInstance(application);
 
         //we were able to call this abstract method as Room has implemented it
         noteDao = noteDatabase.noteDao();
 
         allNotes = noteDao.getAllNotes();
+
+        Log.d(TAG, "NoteRepository: ends");
     }
 
     public void insert(Note note) {

@@ -1,0 +1,12 @@
+We created a Note.java class and annotated it with Entity so Room creates
+an SQLite table for it.
+
+Our Repository class uses NoteDao object to retrieve all the data in the table
+as a list wrapped in LiveData.
+
+ViewModel then retrieves the same live data from the Repository class and caches
+it for main activity.
+
+Main activity does not store the data itself but observers the LiveData stored
+in the ViewModel and automatically receives an updated list of notes whenever
+the data changes in the table.

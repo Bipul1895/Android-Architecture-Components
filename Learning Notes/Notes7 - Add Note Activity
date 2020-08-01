@@ -1,0 +1,33 @@
+Created a FAB in activity_main.xml :
+    Created 3 vector assets in drawable folder for icons :
+        one for fab, one for save option and one for cross button
+
+Created AddNoteActivity
+
+Created a menu directory and added menu resource file : add_note_menu.xml
+This menu contains the save button icon
+
+Major work : AddNoteActivity.java
+Added 3 fields : title, description and priority
+Added Up button using : getSupportActionBar.setHomeAsUpIndicator();
+
+OnCreateOptionsMenu to create menu.
+
+Our viewModel class contains our all database operations including returning
+all the list of Note objects. Also a viewModel binds itself to a particular activity.
+One thing we can do is : create two different viewModels, one for MainActivity and
+one for AddNoteActivity, which is complicated. It is simpler to make AddNoteActivity
+return its result to MainActivity.
+
+The way to achieve is by using StartActivityForResult() and onActivity() result in caller
+activity (here MainActivity) and setResult() method in the called activity (here AddNoteActivity).
+
+StartActivityForResult takes two args : intent object and request code. This request code
+is later used in the onActivityResult() method to recognize which Activity's result we are
+retrieving. MainActivity call many activities using StartActivityForResult(), request code
+is used to distinguish b/w them. AddNoteActivity calls setResult() method which sends an
+intent object (which carries data) along with a "result code" which tells if operation
+was successful.
+
+Note that to use startActivityForResult(), go to manifest file and inside MainActivity
+and add the tag : launchMode = "SingleTop"

@@ -13,6 +13,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -98,6 +100,24 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delete_all_notes:
+                noteViewModel.deleteAllNotes();
+                Toast.makeText(this, "All notes deleted", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

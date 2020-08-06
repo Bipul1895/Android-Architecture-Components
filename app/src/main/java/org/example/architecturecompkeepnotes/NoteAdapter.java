@@ -62,6 +62,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteHolder> {
         notifyDataSetChanged();
     }
 
+    //used in Main Activity's ItemTouchHelper's onSwipe() method
+    //to retrieve note object at the position where user clicks
+    public Note getNoteAt(int position) {
+        return notes.get(position);
+    }
+
     @Override
     public int getItemCount() {
         return notes.size();
